@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.toybox.lucasrezende.dcc196_controle_feira_do_livro.MainActivity">
+
+    <TextView
+        android:layout_width="347dp"
+        android:layout_height="39dp"
+        android:text="@string/menu_principal"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033"
+        android:id="@+id/textView"
+        android:layout_marginLeft="16dp" />
+
+    <ListView
+        android:id="@+id/lstPublico"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/darker_gray"
+        android:scrollbars="horizontal|vertical"
+        android:textFilterEnabled="false"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints"
+        tools:listitem="@android:layout/simple_list_item_1" />
+
+    <Button
+        android:id="@+id/btnNovoLivro"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/novo_livro"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstPublico"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/btnLivros"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="67dp"
+        android:text="@string/livros"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstPublico"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/btnReservaLivro"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="67dp"
+        android:text="@string/nova_reserva"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstPublico"
+        tools:ignore="RtlHardcoded" />
+
+    <Button
+        android:id="@+id/btnNovoConvidado"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/novo_convidado"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lstPublico"
+        tools:ignore="RtlHardcoded" />
+
+</android.support.constraint.ConstraintLayout>

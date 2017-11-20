@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">DCC196 Controle Feira do Livro</string>
+    <string name="menu_principal">Menu - Publico Presentes:</string>
+    <string name="nova_reserva">Nova Reserva</string>
+    <string name="livros">Livros</string>
+    <string name="novo_livro">Novo Livro</string>
+    <string name="novo_convidado">Novo Convidado</string>
+    <string name="nome">Nome:</string>
+    <string name="saida">Saida:</string>
+    <string name="entrada">Entrada:</string>
+    <string name="e_mail">E-Mail</string>
+    <string name="cadastro_de_participante">Cadastro de Participante:</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="e_mail_cadastro">E-mail</string>
+    <string name="nome_cadastro">Nome</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="ano">Ano</string>
+    <string name="cadastro_de_livro">Cadastro de Livro:</string>
+    <string name="editora">Editora</string>
+    <string name="confirma">Confirma</string>
+    <string name="emprestimo">Emprestimo</string>
+    <string name="participantes">Participantes</string>
+    <string name="livro">Livro</string>
+</resources>
