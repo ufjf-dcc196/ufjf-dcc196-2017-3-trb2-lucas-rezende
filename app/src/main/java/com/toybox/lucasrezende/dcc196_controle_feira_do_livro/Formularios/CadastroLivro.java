@@ -25,7 +25,7 @@ public class CadastroLivro extends AppCompatActivity {
 
 
         txtTitulo = (EditText)findViewById(R.id.txtNome);
-        txtEditora = (EditText)findViewById(R.id.txtEditora);
+        txtEditora = (EditText)findViewById(R.id.txtEditoraLayout);
         txtAno = (EditText)findViewById(R.id.txtEmail);
         btnCadastro = (Button)findViewById(R.id.btnCadastro);
 
@@ -38,6 +38,7 @@ public class CadastroLivro extends AppCompatActivity {
                         Integer.parseInt(txtAno.getText().toString())
                 );
                 LivrosHelper.getInstance().adicionaLivro(livro);
+                LivrosHelper.getInstance().getAdapterLivros().inserirLivro(txtTitulo.getText().toString(), txtEditora.getText().toString(), Integer.parseInt(txtAno.getText().toString()));
                 Intent intentResult = new Intent();
                 intentResult.putExtra("resultado", "Livro incluido com sucesso!");
                 setResult(RESULT_OK,intentResult);

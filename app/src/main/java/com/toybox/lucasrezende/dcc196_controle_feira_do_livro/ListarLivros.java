@@ -12,7 +12,7 @@ import android.widget.ListView;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.LivrosHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.ParticipantesHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Livro;
-import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
+
 
 public class ListarLivros extends AppCompatActivity {
 
@@ -27,8 +27,9 @@ public class ListarLivros extends AppCompatActivity {
         listaLivros = (ListView) findViewById(R.id.lstListarLivros);
 
 
-        livros = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, LivrosHelper.getInstance().getList());
-        listaLivros.setAdapter(livros);
+        listaLivros.setAdapter(LivrosHelper.getInstance().getAdapterLivros());
+        LivrosHelper.getInstance().getAdapterLivros().atualizar();
+
 
         listaLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

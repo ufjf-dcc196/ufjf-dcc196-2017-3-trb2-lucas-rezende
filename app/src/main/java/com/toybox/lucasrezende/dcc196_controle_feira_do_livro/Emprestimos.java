@@ -41,8 +41,8 @@ public class Emprestimos extends AppCompatActivity {
             btnConfirmar = (Button)findViewById(R.id.btnConfirmaEmprestimo);
             btnCancela = (Button)findViewById(R.id.btnCancelaEmprestimo);
 
-            participanteAdapter = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, ParticipantesHelper.getInstance().getList());
-            livroAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, LivrosHelper.getInstance().getList());
+            //participanteAdapter = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, ParticipantesHelper.getInstance().getList());
+            //livroAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, LivrosHelper.getInstance().getList());
 
             lstParticipantes.setAdapter(participanteAdapter);
             lstLivros.setAdapter(livroAdapter);

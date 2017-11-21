@@ -1,6 +1,10 @@
 package com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper;
 
+import android.content.Context;
+import android.widget.ListAdapter;
+
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Livro;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.LivroAdapter;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
 
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ public class LivrosHelper {
 
     private static LivrosHelper instance = null;
     private List<Livro> items = new ArrayList<>();
+    LivroAdapter itensAdapter = null;
 
 
     public static LivrosHelper getInstance() {
@@ -23,30 +28,15 @@ public class LivrosHelper {
         return instance;
     }
 
-    public void populaLista() {
-        Livro l1 = new Livro("Leviatã A missão secreta","Galera Record",2012);
-        Livro l2 = new Livro("Beemote A Revolução","Galera Record",2013);
-        Livro l3 = new Livro("Golias A Revelação","Galera Record",2014);
+    public void initAdapterLivro(Context baseContext) {
+        itensAdapter = new LivroAdapter(baseContext, null);
+    }
 
-    //carrega base de dados inicial
-        items.add(l1);
-        items.add(l2);
-        items.add(l3);
-
-   }
-
-    public List<Livro> getList() {
-        return items;
+    public LivroAdapter getAdapterLivros() {
+        return itensAdapter;
     }
 
     public void adicionaLivro(Livro livro) {
         items.add(livro);
-    }
-
-    public List<Participante> getListLocatario(String livro) {
-        for(Livro i: items)
-            if(i.getTitulo().equals(livro))
-                return i.getReservas();
-        return null;
     }
 }

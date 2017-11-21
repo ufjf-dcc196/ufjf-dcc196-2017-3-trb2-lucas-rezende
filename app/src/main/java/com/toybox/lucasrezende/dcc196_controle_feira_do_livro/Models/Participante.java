@@ -50,9 +50,4 @@ public class Participante {
     public String recuperaDetalhes(){
         return "" + nome + ";" + sobrenome + ";" + email + ";" + entrada + ";" + saida + "";
     }
-
-    @Override
-    public String toString() {
-        return nome + " " + sobrenome;
-    }
 }

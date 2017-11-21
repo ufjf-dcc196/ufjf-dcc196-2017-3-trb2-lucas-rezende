@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.R;
-
 public class DetalhesParticipante extends AppCompatActivity {
 
     private TextView txtNome;
@@ -20,7 +18,7 @@ public class DetalhesParticipante extends AppCompatActivity {
         setContentView(R.layout.activity_detalhes_participante);
 
         txtNome = (TextView)findViewById(R.id.txtNome);
-        txtHoraEntrada = (TextView)findViewById(R.id.txtEditora);
+        txtHoraEntrada = (TextView)findViewById(R.id.txtEditoraLayout);
         txtHoraSaida = (TextView)findViewById(R.id.txtSaida);
         txtEmailParticipante = (TextView)findViewById(R.id.txtEmailParticipante);
 

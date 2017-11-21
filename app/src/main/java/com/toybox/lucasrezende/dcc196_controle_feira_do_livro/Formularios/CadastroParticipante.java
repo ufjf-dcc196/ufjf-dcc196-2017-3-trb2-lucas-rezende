@@ -11,12 +11,16 @@ import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.Participant
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CadastroParticipante extends AppCompatActivity {
 
     private EditText txtNome;
     private EditText txtSobrenome;
     private EditText txtEmail;
     private Button btnCadastro;
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,7 @@ public class CadastroParticipante extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_participante);
 
         txtNome = (EditText)findViewById(R.id.txtNome);
-        txtSobrenome = (EditText)findViewById(R.id.txtEditora);
+        txtSobrenome = (EditText)findViewById(R.id.txtEditoraLayout);
         txtEmail = (EditText)findViewById(R.id.txtEmail);
         btnCadastro = (Button)findViewById(R.id.btnCadastro);
 
@@ -37,6 +41,7 @@ public class CadastroParticipante extends AppCompatActivity {
                         txtEmail.getText().toString()
                 );
                 ParticipantesHelper.getInstance().adicionaParticipante(participante);
+                ParticipantesHelper.getInstance().getAdapter().inserirParticipante(txtNome.getText().toString(),  txtSobrenome.getText().toString(),   txtEmail.getText().toString(), (String)sdf.format(new Date()),  "vazio");
                 Intent intentResult = new Intent();
                 intentResult.putExtra("resultado", "Participante incluido com sucesso!");
                 setResult(RESULT_OK,intentResult);
