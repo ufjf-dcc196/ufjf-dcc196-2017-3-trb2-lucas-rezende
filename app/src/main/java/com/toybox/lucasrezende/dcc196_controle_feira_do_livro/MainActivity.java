@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 /*
+        ParticipantesHelper.getInstance().getAdapter().getParticipante(Integer.parseInt(getIntent().getStringExtra("participante")));
         lstPublico.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(ParticipantesHelper.getInstance().getAdapter().getItem(i).getEntrada() == null) {
+                if(ParticipantesHelper.getInstance().getAdapter().getParticipante(Integer.parseInt(l)) == null) {
                     ParticipantesHelper.getInstance().getAdapter().getItem(i).setEntrada();
                 } else if(ParticipantesHelper.getInstance().getAdapter().getItem(i).getSaida() == null){
                     ParticipantesHelper.getInstance().getAdapter().getItem(i).setSaida();
@@ -101,9 +101,8 @@ public class MainActivity extends AppCompatActivity {
         lstPublico.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ParticipantesHelper.getInstance().getAdapter().getItem(i);
                 Intent intent = new Intent(MainActivity.this, DetalhesParticipante.class);
-                intent.putExtra("participante","");
+                intent.putExtra("participante",String.valueOf(l));
                 startActivity(intent);
             }
         });

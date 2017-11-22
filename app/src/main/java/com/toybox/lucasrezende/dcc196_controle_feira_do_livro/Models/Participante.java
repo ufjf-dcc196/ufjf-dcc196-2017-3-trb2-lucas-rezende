@@ -25,6 +25,10 @@ public class Participante {
         setEntrada();
     }
 
+    public Participante() {
+        setEntrada();
+    }
+
     public String getEntrada() {
         return entrada;
     }
@@ -45,6 +49,30 @@ public class Participante {
     }
     public void setSaida(String val) {
         this.saida = val;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String recuperaDetalhes(){

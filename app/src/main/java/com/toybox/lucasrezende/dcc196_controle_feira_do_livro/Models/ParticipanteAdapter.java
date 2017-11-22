@@ -76,9 +76,10 @@ public class ParticipanteAdapter extends CursorAdapter {
         }
     }
 
-    public void getParticipante(){
+    public Participante getParticipante(int id){
         try {
             SQLiteDatabase db = feiraHelper.getReadableDatabase();
+            Participante p = new Participante();
             String[] visao = {
                     FeiraContract.Participante._ID,
                     FeiraContract.Participante.COLUMN_NAME_NOME,
@@ -87,11 +88,24 @@ public class ParticipanteAdapter extends CursorAdapter {
                     FeiraContract.Participante.COLUMN_NAME_ENTRADA,
                     FeiraContract.Participante.COLUMN_NAME_SAIDA,
             };
-            Cursor c = db.query(FeiraContract.Participante.TABLE_NAME, visao, null, null, null, null, null);
-            this.changeCursor(c);
+            String selecao = FeiraContract.Participante._ID + " = ? ";
+            String[] arg = {String.valueOf(id)};
+            String sort = FeiraContract.Participante.COLUMN_NAME_NOME + " DESC";
+            Cursor c = db.query(FeiraContract.Participante.TABLE_NAME, visao, selecao, arg, null, null, null);
+            // verifica se o cursos retornou alguma resultado
+            if(c!=null){
+                c.moveToFirst();
+                p.setNome(c.getString(1));       // definição do NOME retornado do cursor
+                p.setSobrenome(c.getString(2));      // definição da SOBRENOME retornado do cursor
+                p.setEmail(c.getString(3));      // definição do EMAIL retornado do cursor
+                p.setEntrada(c.getString(4));    // definição da hora de ENTRADA do cursos
+                p.setSaida(c.getString(5));    // definição da hora de SAIDA do cursos
+            }
+            return p;
         } catch (Exception e) {
             Log.e(Tag, e.getLocalizedMessage());
             Log.e(Tag, e.getStackTrace().toString());
         }
+        return null;
     }
 }

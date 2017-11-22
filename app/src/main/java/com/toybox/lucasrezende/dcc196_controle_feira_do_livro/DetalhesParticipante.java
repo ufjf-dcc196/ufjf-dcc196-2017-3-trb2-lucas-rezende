@@ -4,6 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraContract;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.ParticipantesHelper;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.ParticipanteAdapter;
+
 public class DetalhesParticipante extends AppCompatActivity {
 
     private TextView txtNome;
@@ -11,6 +16,7 @@ public class DetalhesParticipante extends AppCompatActivity {
     private TextView txtHoraSaida;
     private TextView txtEmailParticipante;
     private String[] detalhes;
+    private Participante p = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +28,12 @@ public class DetalhesParticipante extends AppCompatActivity {
         txtHoraSaida = (TextView)findViewById(R.id.txtSaida);
         txtEmailParticipante = (TextView)findViewById(R.id.txtEmailParticipante);
 
-        detalhes = getIntent().getStringExtra("participante").split(";");
-        //(0)nome (1)sobrenome (2)email (3)entrada (4)saida
-        txtNome.setText(detalhes[0] + " " + detalhes[1]);
-        txtHoraEntrada.setText(detalhes[3]);
-        txtHoraSaida.setText(detalhes[4]);
-        txtEmailParticipante.setText(detalhes[2]);
+
+        p = ParticipantesHelper.getInstance().getAdapter().getParticipante(Integer.parseInt(getIntent().getStringExtra("participante")));
+        txtNome.setText(p.getNome() + " " + p.getSobrenome());
+        txtHoraEntrada.setText(p.getEntrada());
+        txtHoraSaida.setText(p.getSaida());
+        txtEmailParticipante.setText(p.getEmail());
 
     }
 }
