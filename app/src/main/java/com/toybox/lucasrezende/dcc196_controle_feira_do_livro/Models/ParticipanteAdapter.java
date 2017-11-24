@@ -16,16 +16,19 @@ import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraContrac
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraDbHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 
 public class ParticipanteAdapter extends CursorAdapter {
     private FeiraDbHelper feiraHelper;
     private static String Tag = "Participante Adapter";
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 
     public ParticipanteAdapter(Context context, Cursor c) {
         super(context, c, 0);
-        feiraHelper = new FeiraDbHelper(context);
+        feiraHelper = FeiraDbHelper.getInstance(context);
     }
 
     @Override    //layout de visualizaçao do adapter
@@ -54,6 +57,7 @@ public class ParticipanteAdapter extends CursorAdapter {
             Cursor c = db.query(FeiraContract.Participante.TABLE_NAME, visao, null, null, null, null, null);
             this.changeCursor(c);
         } catch (Exception e) {
+            Log.e(Tag, "M-Atualizar");
             Log.e(Tag, e.getLocalizedMessage());
             Log.e(Tag, e.getStackTrace().toString());
         }
@@ -62,15 +66,54 @@ public class ParticipanteAdapter extends CursorAdapter {
     public void inserirParticipante(String nome, String sobrenome, String email, String entrada, String saida){
         try {
             SQLiteDatabase db = feiraHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(FeiraContract.Participante.COLUMN_NAME_NOME, nome);
-            values.put(FeiraContract.Participante.COLUMN_NAME_SOBRENOME, sobrenome);
-            values.put(FeiraContract.Participante.COLUMN_NAME_EMAIL, email);
-            values.put(FeiraContract.Participante.COLUMN_NAME_ENTRADA, entrada);
-            values.put(FeiraContract.Participante.COLUMN_NAME_SAIDA, saida);
-            long id = db.insert(FeiraContract.Participante.TABLE_NAME, null, values);
+            ContentValues dataToInsert = new ContentValues();
+            dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_NOME, nome);
+            dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_SOBRENOME, sobrenome);
+            dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_EMAIL, email);
+            dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_ENTRADA, entrada);
+            dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_SAIDA, saida);
+            long id = db.insert(FeiraContract.Participante.TABLE_NAME, null, dataToInsert);
             atualizar();
         } catch (Exception e) {
+            Log.e(Tag, "M-Inserir Participante");
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+    }
+
+    public void atualizaEntrada(String id, int i){
+        try {
+            SQLiteDatabase db = feiraHelper.getWritableDatabase();
+            ContentValues dataToInsert = new ContentValues();
+            if(i == -1)
+                dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_ENTRADA,"Vazio");
+            else
+                dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_ENTRADA,sdf.format(new Date()));
+            String selecao = FeiraContract.Participante._ID + " = ? ";
+            String[] arg = {String.valueOf(id)};
+            db.update(FeiraContract.Participante.TABLE_NAME, dataToInsert, selecao, arg);
+            atualizar();
+        } catch (Exception e) {
+            Log.e(Tag, "M-Inserir Entrada");
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+    }
+
+    public void atualizaSaida(String id, int i){
+        try {
+            SQLiteDatabase db = feiraHelper.getWritableDatabase();
+            ContentValues dataToInsert = new ContentValues();
+            if(i == -1)
+                dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_SAIDA,"Vazio");
+            else
+                dataToInsert.put(FeiraContract.Participante.COLUMN_NAME_SAIDA,sdf.format(new Date()));
+            String selecao = FeiraContract.Participante._ID + " = ? ";
+            String[] arg = {String.valueOf(id)};
+            db.update(FeiraContract.Participante.TABLE_NAME, dataToInsert, selecao, arg);
+            atualizar();
+        } catch (Exception e) {
+            Log.e(Tag, "M-Inserir Saida");
             Log.e(Tag, e.getLocalizedMessage());
             Log.e(Tag, e.getStackTrace().toString());
         }
@@ -90,7 +133,6 @@ public class ParticipanteAdapter extends CursorAdapter {
             };
             String selecao = FeiraContract.Participante._ID + " = ? ";
             String[] arg = {String.valueOf(id)};
-            String sort = FeiraContract.Participante.COLUMN_NAME_NOME + " DESC";
             Cursor c = db.query(FeiraContract.Participante.TABLE_NAME, visao, selecao, arg, null, null, null);
             // verifica se o cursos retornou alguma resultado
             if(c!=null){
@@ -103,6 +145,7 @@ public class ParticipanteAdapter extends CursorAdapter {
             }
             return p;
         } catch (Exception e) {
+            Log.e(Tag, "M-Get Participante");
             Log.e(Tag, e.getLocalizedMessage());
             Log.e(Tag, e.getStackTrace().toString());
         }

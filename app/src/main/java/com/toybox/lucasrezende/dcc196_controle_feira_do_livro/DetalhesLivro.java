@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.LivrosHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.ParticipantesHelper;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Livro;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.ParticipanteAdapter;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.R;
@@ -20,6 +21,7 @@ public class DetalhesLivro extends AppCompatActivity {
     private TextView txtAno;
     private String[] detalhes;
     private ListView lstLocatarios;
+    private Livro l = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +34,16 @@ public class DetalhesLivro extends AppCompatActivity {
         lstLocatarios = (ListView)findViewById(R.id.lstLocatarios);
         ParticipantesHelper.getInstance().initAdapterLocatario(getBaseContext());
 
-        detalhes = getIntent().getStringExtra("livros").split(";");
-        //(0)titulo (1)editora (2)Ano
-        txtNome.setText(detalhes[0]);
-        txtEditora.setText(detalhes[1]);
-        txtAno.setText(detalhes[2].toString());
 
-       // ParticipantesHelper.getInstance().getAdapterLocatario().getLocatarios(detalhes[0]);
-        lstLocatarios.setAdapter(ParticipantesHelper.getInstance().getAdapterLocatario());
+        l = LivrosHelper.getInstance().getAdapterLivros().getLivro(Integer.parseInt(getIntent().getStringExtra("participante")));
+        txtNome.setText(l.getTitulo());
+        txtEditora.setText(l.getEditora());
+        txtAno.setText(l.getAno());
+        //lstLocatarios.setAdapter();
 
+
+
+       
 
     }
 }

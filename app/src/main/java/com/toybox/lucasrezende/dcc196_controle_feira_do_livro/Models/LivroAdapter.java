@@ -23,7 +23,8 @@ public class LivroAdapter extends CursorAdapter {
 
     public LivroAdapter(Context context, Cursor c) {
         super(context, c, 0);
-        feiraHelper = new FeiraDbHelper(context);
+        feiraHelper = FeiraDbHelper.getInstance(context);
+       // feiraHelper = new FeiraDbHelper(context);
     }
 
     @Override    //layout de visualizaçao do adapter
@@ -77,8 +78,31 @@ public class LivroAdapter extends CursorAdapter {
         }
     }
 
-    public Livro getItem(int i){
-        return null;//livro;
-
+    public Livro getLivro(int id){
+        try {
+            SQLiteDatabase db = feiraHelper.getReadableDatabase();
+            Livro l = new Livro();
+            String[] visao = {
+                    FeiraContract.Livro._ID,
+                    FeiraContract.Livro.COLUMN_NAME_TITULO,
+                    FeiraContract.Livro.COLUMN_NAME_EDITORA,
+                    FeiraContract.Livro.COLUMN_NAME_ANO,
+            };
+            String selecao = FeiraContract.Livro._ID + " = ? ";
+            String[] arg = {String.valueOf(id)};
+            Cursor c = db.query(FeiraContract.Livro.TABLE_NAME, visao, selecao, arg, null, null, null);
+            // verifica se o cursos retornou alguma resultado
+            if(c!=null){
+                c.moveToFirst();
+                l.setTitulo(c.getString(1));
+                l.setEditora(c.getString(2));
+                l.setAno(c.getInt(3));
+            }
+            return l;
+        } catch (Exception e) {
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+        return null;
     }
 }

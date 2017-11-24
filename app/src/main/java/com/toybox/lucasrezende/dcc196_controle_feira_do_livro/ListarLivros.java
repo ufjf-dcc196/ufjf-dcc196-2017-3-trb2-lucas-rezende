@@ -34,10 +34,8 @@ public class ListarLivros extends AppCompatActivity {
         listaLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Livro escolha = livros.getItem(i);
                 Intent intent = new Intent(ListarLivros.this, DetalhesLivro.class);
-                Log.e("ListarLivros - Intent", escolha.toString());
-                intent.putExtra("livros",escolha.recuperaDetalhes());
+                intent.putExtra("livros",String.valueOf(l));
                 startActivity(intent);
             }
         });

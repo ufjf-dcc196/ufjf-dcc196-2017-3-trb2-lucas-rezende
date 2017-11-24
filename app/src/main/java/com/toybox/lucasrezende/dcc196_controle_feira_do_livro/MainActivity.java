@@ -15,18 +15,19 @@ import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Formularios.Cadast
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Formularios.CadastroParticipante;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.LivrosHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.ParticipantesHelper;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int NOVO_CADASTRO_PARTICIPANTE = 1;
     private static final int NOVO_CADASTRO_LIVRO = 2;
+    private static final int REGISTRO = 1;
+    private static final int ANULAR_REGISTRO = -1;
     private Button btnNovoPublico;
     private Button btnNovoLivro;
     private Button btnNovaReserva;
     private Button btnLivros;
     private ListView lstPublico;
-
-
 
 
     @Override
@@ -81,23 +82,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/*
-        ParticipantesHelper.getInstance().getAdapter().getParticipante(Integer.parseInt(getIntent().getStringExtra("participante")));
+
+
         lstPublico.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(ParticipantesHelper.getInstance().getAdapter().getParticipante(Integer.parseInt(l)) == null) {
-                    ParticipantesHelper.getInstance().getAdapter().getItem(i).setEntrada();
-                } else if(ParticipantesHelper.getInstance().getAdapter().getItem(i).getSaida() == null){
-                    ParticipantesHelper.getInstance().getAdapter().getItem(i).setSaida();
+                Participante p = null;
+                p = ParticipantesHelper.getInstance().getAdapter().getParticipante((int)l);
+                if(p.getEntrada().equals("Vazio")) {
+                   ParticipantesHelper.getInstance().getAdapter().atualizaEntrada(String.valueOf(l),REGISTRO);
+                } else if(p.getSaida().equals("Vazio")){
+                      ParticipantesHelper.getInstance().getAdapter().atualizaSaida(String.valueOf(l),REGISTRO);
                     }else {
-                    ParticipantesHelper.getInstance().getAdapter().getItem(i).setSaida(null);
-                    ParticipantesHelper.getInstance().getAdapter().getItem(i).setEntrada(null);
+                         ParticipantesHelper.getInstance().getAdapter().atualizaEntrada(String.valueOf(l),ANULAR_REGISTRO);
+                         ParticipantesHelper.getInstance().getAdapter().atualizaSaida(String.valueOf(l),ANULAR_REGISTRO);
                 }
                 return true;
             }
         });
-*/
+
         lstPublico.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -115,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         BaseAdapter adpter = (BaseAdapter) lstPublico.getAdapter();
         adpter.notifyDataSetChanged();
     }
-
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.print("Livro adcionado");
         }
     }
-
+*/
 
 
 }

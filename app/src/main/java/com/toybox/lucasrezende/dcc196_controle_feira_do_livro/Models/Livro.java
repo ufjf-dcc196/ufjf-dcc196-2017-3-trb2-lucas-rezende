@@ -22,6 +22,29 @@ public class Livro {
         this.ano = ano;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public Livro() {
+    }
+
     public List<Participante> getReservas() {
         return reservas;
     }
