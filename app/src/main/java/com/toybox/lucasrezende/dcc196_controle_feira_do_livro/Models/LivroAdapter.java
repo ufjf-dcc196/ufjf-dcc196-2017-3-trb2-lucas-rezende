@@ -58,6 +58,7 @@ public class LivroAdapter extends CursorAdapter {
             this.changeCursor(c);
 
         } catch (Exception e) {
+            Log.e(Tag, "M-Atualizar");
             Log.e(Tag , e.getLocalizedMessage());
             Log.e(Tag , e.getStackTrace().toString());
         }
@@ -73,6 +74,7 @@ public class LivroAdapter extends CursorAdapter {
             long id = db.insert(FeiraContract.Livro.TABLE_NAME, null, values);
             atualizar();
         } catch (Exception e) {
+            Log.e(Tag, "M-Inserir Livro");
             Log.e("BIBLIO", e.getLocalizedMessage());
             Log.e("BIBLIO", e.getStackTrace().toString());
         }
@@ -100,6 +102,7 @@ public class LivroAdapter extends CursorAdapter {
             }
             return l;
         } catch (Exception e) {
+            Log.e(Tag, "M-Get Livro");
             Log.e(Tag, e.getLocalizedMessage());
             Log.e(Tag, e.getStackTrace().toString());
         }

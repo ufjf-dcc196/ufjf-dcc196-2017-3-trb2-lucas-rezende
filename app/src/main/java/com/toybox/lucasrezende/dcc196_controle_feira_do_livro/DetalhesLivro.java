@@ -35,15 +35,15 @@ public class DetalhesLivro extends AppCompatActivity {
         ParticipantesHelper.getInstance().initAdapterLocatario(getBaseContext());
 
 
-        l = LivrosHelper.getInstance().getAdapterLivros().getLivro(Integer.parseInt(getIntent().getStringExtra("participante")));
+        l = LivrosHelper.getInstance().getAdapterLivros().getLivro(Integer.parseInt(getIntent().getStringExtra("livros")));
         txtNome.setText(l.getTitulo());
         txtEditora.setText(l.getEditora());
-        txtAno.setText(l.getAno());
+        txtAno.setText(String.valueOf(l.getAno()));
         //lstLocatarios.setAdapter();
 
 
 
-       
+
 
     }
 }
