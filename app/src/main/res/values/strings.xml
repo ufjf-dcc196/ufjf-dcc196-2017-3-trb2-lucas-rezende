@@ -21,4 +21,6 @@
     <string name="emprestimo">Emprestimo</string>
     <string name="participantes">Participantes</string>
     <string name="livro">Livro</string>
+    <string name="cancela">Cancela</string>
+    <string name="drop">Drop</string>
 </resources>

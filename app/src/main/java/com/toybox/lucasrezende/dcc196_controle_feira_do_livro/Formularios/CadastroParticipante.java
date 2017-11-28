@@ -41,7 +41,7 @@ public class CadastroParticipante extends AppCompatActivity {
                         txtEmail.getText().toString()
                 );
                 ParticipantesHelper.getInstance().adicionaParticipante(participante);
-                ParticipantesHelper.getInstance().getAdapter().inserirParticipante(txtNome.getText().toString(),  txtSobrenome.getText().toString(),   txtEmail.getText().toString(), (String)sdf.format(new Date()),  "vazio");
+                ParticipantesHelper.getInstance().getAdapter().inserirParticipante(txtNome.getText().toString(),  txtSobrenome.getText().toString(),   txtEmail.getText().toString(), (String)sdf.format(new Date()),  "Vazio");
                 Intent intentResult = new Intent();
                 intentResult.putExtra("resultado", "Participante incluido com sucesso!");
                 setResult(RESULT_OK,intentResult);

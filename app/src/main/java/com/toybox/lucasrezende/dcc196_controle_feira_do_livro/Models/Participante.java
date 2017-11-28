@@ -15,6 +15,7 @@ public class Participante {
     private String email;
     private String entrada;
     private String saida;
+    private int id;
     SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
 
 
@@ -74,6 +75,10 @@ public class Participante {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String recuperaDetalhes(){
         return "" + nome + ";" + sobrenome + ";" + email + ";" + entrada + ";" + saida + "";

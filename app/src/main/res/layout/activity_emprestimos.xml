@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/participantes"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -31,58 +31,27 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="@string/livros"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstParticipantes" />
-
-    <ListView
-        android:id="@+id/lstParticipantes"
-        style="@style/Widget.AppCompat.ListView"
-        android:layout_width="340dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
-        android:scrollbars="horizontal|vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLabelParticipantes"
-        tools:listitem="@android:layout/simple_list_item_1" />
-
-    <ListView
-        android:id="@+id/lstExemplares"
-        style="@style/Widget.AppCompat.ListView"
-        android:layout_width="340dp"
-        android:layout_height="100dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
-        android:scrollbars="horizontal|vertical"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLabelLivros"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/spnParticipante" />
 
     <TextView
         android:id="@+id/txtLabelEmprestimos"
         android:layout_width="137dp"
         android:layout_height="31dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="32dp"
         android:text="@string/emprestimo"
         android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstExemplares"
-        tools:ignore="RtlHardcoded" />
+        tools:ignore="RtlHardcoded"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/spnLivros" />
 
     <TextView
         android:id="@+id/txtLocatario"
@@ -92,8 +61,10 @@
         android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtLabelEmprestimos" />
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtLabelEmprestimos"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/txtLivroEscolhido"
@@ -101,35 +72,47 @@
         android:layout_height="36dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtLocatario" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLocatario"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <Button
         android:id="@+id/btnConfirmaEmprestimo"
-        android:layout_width="100dp"
-        android:layout_height="44dp"
+        android:layout_width="201dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
         android:text="@string/confirma"
         app:layout_constraintBottom_toTopOf="@+id/txtLocatario"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lstExemplares"
-        app:layout_constraintVertical_bias="0.526" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/spnLivros"
+        tools:layout_editor_absoluteX="167dp"
+        app:layout_constraintVertical_bias="0.571" />
 
-    <Button
-        android:id="@+id/btnCancelaEmprestimo"
-        android:layout_width="100dp"
-        android:layout_height="44dp"
-        android:layout_marginBottom="8dp"
+    <Spinner
+        android:id="@+id/spnLivros"
+        android:layout_width="337dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtLabelLivros"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Spinner
+        android:id="@+id/spnParticipante"
+        android:layout_width="340dp"
+        android:layout_height="52dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Cancela"
-        app:layout_constraintBottom_toTopOf="@+id/txtLocatario"
-        app:layout_constraintLeft_toRightOf="@+id/txtLabelEmprestimos"
-        app:layout_constraintRight_toLeftOf="@+id/btnConfirmaEmprestimo"
-        app:layout_constraintTop_toBottomOf="@+id/lstExemplares" />
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLabelParticipantes" />
 </android.support.constraint.ConstraintLayout>

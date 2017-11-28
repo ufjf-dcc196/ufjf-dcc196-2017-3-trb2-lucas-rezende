@@ -17,8 +17,9 @@ public class ParticipantesHelper {
 
     private static ParticipantesHelper instance = null;
     private List<Participante> items = new ArrayList<>();
-    ParticipanteAdapter ParticipanteAdapter = null;
-    ParticipanteAdapter locatarioAdapter = null;
+    ParticipanteAdapter participantesAdapter = null;
+    ParticipanteAdapter participantesAtivosAdapter = null;
+    ParticipanteAdapter locatariosAdapter = null;
 
 
     public static ParticipantesHelper getInstance() {
@@ -30,20 +31,27 @@ public class ParticipantesHelper {
 
 
     public void initAdapterParticipantes(Context baseContext) {
-        ParticipanteAdapter = new ParticipanteAdapter(baseContext,null);
+        participantesAdapter = new ParticipanteAdapter(baseContext,null);
+
+    }
+
+    public void initAdapterParticipantesAtivos(Context baseContext){
+        participantesAtivosAdapter = new ParticipanteAdapter(baseContext, null);
     }
 
     public void initAdapterLocatario(Context baseContext) {
-        locatarioAdapter = new ParticipanteAdapter(baseContext,null);
+        locatariosAdapter = new ParticipanteAdapter(baseContext,null);
     }
 
     public ParticipanteAdapter getAdapter() {
-        return ParticipanteAdapter;
+        return participantesAdapter;
     }
 
     public ParticipanteAdapter getAdapterLocatario() {
-        return locatarioAdapter;
+        return locatariosAdapter;
     }
+
+    public ParticipanteAdapter getParticipantesAtivosAdapter() {return participantesAtivosAdapter;}
 
     public void adicionaParticipante(Participante participante) {
         items.add(participante);

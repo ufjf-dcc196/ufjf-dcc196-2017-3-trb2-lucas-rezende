@@ -39,7 +39,12 @@ public class DetalhesLivro extends AppCompatActivity {
         txtNome.setText(l.getTitulo());
         txtEditora.setText(l.getEditora());
         txtAno.setText(String.valueOf(l.getAno()));
-        //lstLocatarios.setAdapter();
+
+
+        lstLocatarios.setAdapter(ParticipantesHelper.getInstance().getAdapterLocatario());
+        ParticipantesHelper.getInstance().getAdapterLocatario().getLocatarios(l.getId());
+        //ParticipantesHelper.getInstance().getAdapterLocatario().atualizar();
+        //ParticipantesHelper.getInstance().getParticipantesAtivosAdapter().atualizarLocatarios(l.getId());
 
 
 

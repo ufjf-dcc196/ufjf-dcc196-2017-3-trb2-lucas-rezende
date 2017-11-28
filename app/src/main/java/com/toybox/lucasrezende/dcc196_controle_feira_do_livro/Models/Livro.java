@@ -14,6 +14,7 @@ public class Livro {
     private String titulo;
     private String editora;
     private int ano;
+    private int id;
     private List<Participante> reservas = new ArrayList<>();
 
     public Livro(String titulo, String editora, int ano) {
@@ -21,6 +22,8 @@ public class Livro {
         this.editora = editora;
         this.ano = ano;
     }
+
+    public Livro() {}
 
     public void setTitulo(String titulo) {
         this.titulo = titulo;
@@ -42,8 +45,9 @@ public class Livro {
         this.ano = ano;
     }
 
-    public Livro() {
-    }
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public List<Participante> getReservas() {
         return reservas;
@@ -53,9 +57,7 @@ public class Livro {
         this.reservas.add(participante);
     }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getTitulo() {return titulo;}
 
     public String recuperaDetalhes(){
         Log.e("Livro", "Recupera Detalhes");

@@ -24,15 +24,17 @@ public final class FeiraContract {
             Participante.COLUMN_NAME_ENTRADA + TEXT_TYPE + SEP +
             Participante.COLUMN_NAME_SAIDA + TEXT_TYPE + ")";
 
-    public static final String SQL_CREATE_EMPRESTIMOS = "CREATE TABLE " + Emprestimos.TABLE_NAME + " (" +
-            Emprestimos._ID + INT_TYPE +" PRIMARY KEY AUTOINCREMENT" + SEP +
-            Emprestimos.COLUMN_NAME_PARTICIPANTE + TEXT_TYPE + SEP +
-            Emprestimos.COLUMN_NAME_LIVRO + TEXT_TYPE + SEP + ")";
+    public static final String SQL_CREATE_EMPRESTIMOS = "CREATE TABLE " + Emprestimo.TABLE_NAME + " (" +
+            Emprestimo._ID + INT_TYPE +" PRIMARY KEY AUTOINCREMENT" + SEP +
+            Emprestimo.COLUMN_NAME_PARTICIPANTE + INT_TYPE + "" + SEP +
+            Emprestimo.COLUMN_NAME_LIVRO + INT_TYPE  + ")";
 
     //SQL DROP//
     public static final String SQL_DROP_LIVRO = "DROP TABLE IF EXISTS " + Livro.TABLE_NAME;
 
     public static final String SQL_DROP_PARTICIPANTE = "DROP TABLE IF EXISTS " + Participante.TABLE_NAME;
+
+    public static final String SQL_DROP_EMPRESTIMOS = "DROP TABLE IF EXISTS " + Emprestimo.TABLE_NAME;
 
 
     public FeiraContract() {
@@ -42,7 +44,6 @@ public final class FeiraContract {
         public static final String COLUMN_NAME_TITULO = "titulo";
         public static final String COLUMN_NAME_EDITORA = "editora";
         public static final String COLUMN_NAME_ANO = "ano";
-        public static final String COLUMN_NAME_LOCATARIO = "locatario";
     }
     public static final class Participante implements BaseColumns {
         public static final String TABLE_NAME = "participante";
@@ -52,10 +53,10 @@ public final class FeiraContract {
         public static final String COLUMN_NAME_ENTRADA = "entrada";
         public static final String COLUMN_NAME_SAIDA = "saida";
     }
-    public static final class Emprestimos implements BaseColumns {
-        public static final String TABLE_NAME = "Emprestimos";
-        public static final String COLUMN_NAME_PARTICIPANTE = "participante";
-        public static final String COLUMN_NAME_LIVRO = "livro";
+    public static final class Emprestimo implements BaseColumns {
+        public static final String TABLE_NAME = "emprestimo";
+        public static final String COLUMN_NAME_PARTICIPANTE = "participante_id";
+        public static final String COLUMN_NAME_LIVRO = "livro_id";
 
     }
 }

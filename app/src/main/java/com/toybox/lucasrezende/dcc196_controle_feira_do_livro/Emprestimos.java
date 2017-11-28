@@ -7,26 +7,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.LivrosHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.ParticipantesHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Livro;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.LivroAdapter;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.Participante;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Models.ParticipanteAdapter;
 
 public class Emprestimos extends AppCompatActivity {
 
-    private ListView lstParticipantes;
-    private ListView lstLivros;
+    private Spinner spnParticipantes;
+    private Spinner spnLivros;
     private Button   btnConfirmar;
-    private Button   btnCancela;
     private TextView txtLocatario;
     private TextView txtLivro;
     private Participante tempParticipante;
     private Livro tempLivro;
-    private ArrayAdapter<Participante> participanteAdapter = null;
-    private ArrayAdapter<Livro> livroAdapter = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,66 +35,64 @@ public class Emprestimos extends AppCompatActivity {
         setContentView(R.layout.activity_emprestimos);
 
 
-            lstLivros = (ListView) findViewById(R.id.lstExemplares);
-            lstParticipantes = (ListView) findViewById(R.id.lstParticipantes);
+            spnLivros = (Spinner) findViewById(R.id.spnLivros);
+            spnParticipantes = (Spinner) findViewById(R.id.spnParticipante);
             txtLocatario = (TextView)findViewById(R.id.txtLocatario);
             txtLivro = (TextView)findViewById(R.id.txtLivroEscolhido);
             btnConfirmar = (Button)findViewById(R.id.btnConfirmaEmprestimo);
-            btnCancela = (Button)findViewById(R.id.btnCancelaEmprestimo);
 
-            //participanteAdapter = new ArrayAdapter<Participante>(this, android.R.layout.simple_list_item_1, ParticipantesHelper.getInstance().getList());
-            //livroAdapter = new ArrayAdapter<Livro>(this, android.R.layout.simple_list_item_1, LivrosHelper.getInstance().getList());
 
-            lstParticipantes.setAdapter(participanteAdapter);
-            lstLivros.setAdapter(livroAdapter);
+            spnParticipantes.setAdapter(ParticipantesHelper.getInstance().getParticipantesAtivosAdapter());
+            ParticipantesHelper.getInstance().getParticipantesAtivosAdapter().atualizarAtivos();
+            spnLivros.setAdapter(LivrosHelper.getInstance().getAdapterLivros());
+            LivrosHelper.getInstance().getAdapterLivros().atualizar();
 
-        lstParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                 Participante escolha = participanteAdapter.getItem(i);
-                 tempParticipante = escolha;
-                 txtLocatario.setText(escolha.toString());
-            }
-        });
+            spnParticipantes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    tempParticipante = ParticipantesHelper.getInstance().getParticipantesAtivosAdapter().getParticipante((int)l);
+                    txtLocatario.setText(tempParticipante.getNome() + " " + tempParticipante.getSobrenome());
+                }
 
-        lstLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Livro escolha = livroAdapter.getItem(i);
-                txtLivro.setText(escolha.toString());
-                tempLivro = escolha;
-            }
-        });
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            spnLivros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    tempLivro = LivrosHelper.getInstance().getAdapterLivros().getLivro((int)l);
+                    txtLivro.setText(tempLivro.getTitulo());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(tempLivro != null && tempParticipante != null) {
-                    tempLivro.setReservas(tempParticipante);
-                    tempLivro = null;
-                    tempParticipante = null;
-                    txtLivro.setText("");
-                    txtLocatario.setText("");
+                    LivrosHelper.getInstance().getAdapterLivros().registraLocacao(tempParticipante.getId(),tempLivro.getId());
+                    zeraDados();
                     Toast.makeText(getApplicationContext(), "Emprestimo Confirmado", Toast.LENGTH_SHORT).show();
                 }else{
-                    tempLivro = null;
-                    tempParticipante = null;
-                    txtLivro.setText("");
-                    txtLocatario.setText("");
+                    zeraDados();
                     Toast.makeText(getApplicationContext(), "Dados Incompletos", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
 
-        btnCancela.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tempLivro = null;
-                tempParticipante = null;
-                txtLivro.setText("");
-                txtLocatario.setText("");
-            }
-        });
+    public void zeraDados(){
+        tempLivro = null;
+        tempParticipante = null;
+        txtLivro.setText("");
+        txtLocatario.setText("");
     }
 
 }

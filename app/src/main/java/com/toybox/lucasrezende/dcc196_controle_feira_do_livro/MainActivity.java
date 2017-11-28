@@ -1,6 +1,7 @@
 package com.toybox.lucasrezende.dcc196_controle_feira_do_livro;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraContract;
+import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraDbHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Formularios.CadastroLivro;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Formularios.CadastroParticipante;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Helper.LivrosHelper;
@@ -27,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnNovoLivro;
     private Button btnNovaReserva;
     private Button btnLivros;
+    private Button btnDrop;
     private ListView lstPublico;
 
 
@@ -39,9 +43,12 @@ public class MainActivity extends AppCompatActivity {
         btnNovaReserva = (Button) findViewById(R.id.btnReservaLivro);
         btnLivros = (Button) findViewById(R.id.btnLivros);
         btnNovoLivro = (Button) findViewById(R.id.btnNovoLivro);
+        btnDrop = (Button)findViewById(R.id.btnDrop);
         lstPublico = (ListView) findViewById(R.id.lstPublico);
 
         ParticipantesHelper.getInstance().initAdapterParticipantes(getBaseContext());
+        ParticipantesHelper.getInstance().initAdapterLocatario(getBaseContext());
+        ParticipantesHelper.getInstance().initAdapterParticipantesAtivos(getBaseContext());
         LivrosHelper.getInstance().initAdapterLivro(getBaseContext());
         lstPublico.setAdapter(ParticipantesHelper.getInstance().getAdapter());
         ParticipantesHelper.getInstance().getAdapter().atualizar();
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent,NOVO_CADASTRO_PARTICIPANTE);
             }
         });
-/*
+
         btnNovaReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-*/
+
         btnNovoLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +87,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ListarLivros.class);
                 startActivity(intent);
+            }
+        });
+
+        btnDrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SQLiteDatabase db = FeiraDbHelper.getInstance(getBaseContext()).getReadableDatabase();
+                FeiraDbHelper.getInstance(getBaseContext()).onDrop(db);
+                FeiraDbHelper.getInstance(getBaseContext()).onCreate(db);
+                ParticipantesHelper.getInstance().getAdapter().atualizar();
             }
         });
 
@@ -118,20 +135,4 @@ public class MainActivity extends AppCompatActivity {
         BaseAdapter adpter = (BaseAdapter) lstPublico.getAdapter();
         adpter.notifyDataSetChanged();
     }
-/*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == MainActivity.RESULT_OK && requestCode == NOVO_CADASTRO_PARTICIPANTE && data != null){
-            Toast.makeText(getApplicationContext(),data.getStringExtra("resultado"),Toast.LENGTH_SHORT).show();
-            System.out.print("participante adcionado");
-        }
-        if(requestCode == MainActivity.RESULT_OK && requestCode == NOVO_CADASTRO_LIVRO && data != null){
-            Toast.makeText(getApplicationContext(),data.getStringExtra("resultado"),Toast.LENGTH_SHORT).show();
-            System.out.print("Livro adcionado");
-        }
-    }
-*/
-
-
 }

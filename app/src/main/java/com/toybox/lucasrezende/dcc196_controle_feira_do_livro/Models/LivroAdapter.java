@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +16,17 @@ import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraContrac
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.Banco.FeiraDbHelper;
 import com.toybox.lucasrezende.dcc196_controle_feira_do_livro.R;
 
+import java.util.Date;
 
 
 public class LivroAdapter extends CursorAdapter {
+
     private FeiraDbHelper feiraHelper;
     private static String Tag = "Livro Adapter";
 
     public LivroAdapter(Context context, Cursor c) {
         super(context, c, 0);
         feiraHelper = FeiraDbHelper.getInstance(context);
-       // feiraHelper = new FeiraDbHelper(context);
     }
 
     @Override    //layout de visualizaçao do adapter
@@ -75,8 +77,8 @@ public class LivroAdapter extends CursorAdapter {
             atualizar();
         } catch (Exception e) {
             Log.e(Tag, "M-Inserir Livro");
-            Log.e("BIBLIO", e.getLocalizedMessage());
-            Log.e("BIBLIO", e.getStackTrace().toString());
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
         }
     }
 
@@ -96,6 +98,7 @@ public class LivroAdapter extends CursorAdapter {
             // verifica se o cursos retornou alguma resultado
             if(c!=null){
                 c.moveToFirst();
+                l.setId(c.getInt(0));
                 l.setTitulo(c.getString(1));
                 l.setEditora(c.getString(2));
                 l.setAno(c.getInt(3));
@@ -108,4 +111,21 @@ public class LivroAdapter extends CursorAdapter {
         }
         return null;
     }
+
+    public void registraLocacao(int locatario, int livro){
+        try {
+            SQLiteDatabase db = feiraHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(FeiraContract.Emprestimo.COLUMN_NAME_LIVRO, livro);
+            values.put(FeiraContract.Emprestimo.COLUMN_NAME_PARTICIPANTE, locatario);
+            long id = db.insert(FeiraContract.Emprestimo.TABLE_NAME, null, values);
+        } catch (Exception e) {
+            Log.e(Tag, "M-Registrar Locatario");
+            Log.e(Tag,e.getMessage());
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+    }
+
+
 }

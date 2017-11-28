@@ -63,6 +63,28 @@ public class ParticipanteAdapter extends CursorAdapter {
         }
     }
 
+    public void atualizarAtivos(){
+        try {
+            SQLiteDatabase db = feiraHelper.getReadableDatabase();
+            String[] visao = {
+                    FeiraContract.Participante._ID,
+                    FeiraContract.Participante.COLUMN_NAME_NOME,
+                    FeiraContract.Participante.COLUMN_NAME_SOBRENOME,
+                    FeiraContract.Participante.COLUMN_NAME_EMAIL,
+                    FeiraContract.Participante.COLUMN_NAME_ENTRADA,
+                    FeiraContract.Participante.COLUMN_NAME_SAIDA,
+            };
+            String selecao = FeiraContract.Participante.COLUMN_NAME_ENTRADA + " <> ? AND " + FeiraContract.Participante.COLUMN_NAME_SAIDA + " = ? ";
+            String[] arg = {"Vazio", "Vazio"};
+            Cursor c = db.query(FeiraContract.Participante.TABLE_NAME, visao, selecao, arg, null, null, null);
+            this.changeCursor(c);
+        } catch (Exception e) {
+            Log.e(Tag, "M-AtualizarAtivos");
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+    }
+
     public void inserirParticipante(String nome, String sobrenome, String email, String entrada, String saida){
         try {
             SQLiteDatabase db = feiraHelper.getWritableDatabase();
@@ -137,6 +159,7 @@ public class ParticipanteAdapter extends CursorAdapter {
             // verifica se o cursos retornou alguma resultado
             if(c!=null){
                 c.moveToFirst();
+                p.setId(c.getInt(0));
                 p.setNome(c.getString(1));       // definição do NOME retornado do cursor
                 p.setSobrenome(c.getString(2));      // definição da SOBRENOME retornado do cursor
                 p.setEmail(c.getString(3));      // definição do EMAIL retornado do cursor
@@ -150,5 +173,41 @@ public class ParticipanteAdapter extends CursorAdapter {
             Log.e(Tag, e.getStackTrace().toString());
         }
         return null;
+    }
+    public void getLocatarios(int id_livro){
+        String rawQuery = "";
+        String test;
+        try {
+            SQLiteDatabase db = feiraHelper.getReadableDatabase();
+            rawQuery = "SELECT * FROM " + FeiraContract.Participante.TABLE_NAME + " AS a "
+                    + " INNER JOIN " + FeiraContract.Emprestimo.TABLE_NAME + " AS b "
+                    + " ON a." + FeiraContract.Participante._ID + " = b." + FeiraContract.Emprestimo.COLUMN_NAME_PARTICIPANTE
+                    + " WHERE b." + FeiraContract.Emprestimo.COLUMN_NAME_LIVRO + " = " + id_livro;
+            String[] arg = {String.valueOf(id_livro)};
+            Cursor c = db.rawQuery(rawQuery,null);
+            this.changeCursor(c);
+
+        } catch (Exception e) {
+            Log.e(Tag, rawQuery);
+            Log.e(Tag, "M-Get Locatarios");
+            Log.e(Tag , e.getLocalizedMessage());
+            Log.e(Tag , e.getStackTrace().toString());
+        }
+    }
+
+    public void atualizarLocatarios(int id) {
+        try {
+            SQLiteDatabase db = feiraHelper.getReadableDatabase();
+            String rawQuery = "SELECT * FROM " + FeiraContract.Participante.TABLE_NAME + " INNER JOIN " + FeiraContract.Emprestimo.TABLE_NAME
+                    + " ON " + FeiraContract.Participante._ID + " = " + FeiraContract.Emprestimo.COLUMN_NAME_PARTICIPANTE
+                    + " WHERE " + FeiraContract.Emprestimo.COLUMN_NAME_LIVRO + " = ? ";
+            String[] arg = {String.valueOf(id)};
+            Cursor c = db.rawQuery(rawQuery,arg);
+            this.changeCursor(c);
+        } catch (Exception e) {
+            Log.e(Tag, "M-AtualizarAtivos");
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
     }
 }
